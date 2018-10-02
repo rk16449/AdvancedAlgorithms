@@ -1,8 +1,7 @@
 package unit.breadthSearchFirst;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -14,43 +13,52 @@ public class BreadthSearchFirstTest {
 
 	@Test
 	public void testCreateBFS() {
-	
+
 		BreadthFirstSearch<Integer> bfs = new BreadthFirstSearch<Integer>();
-		
+
 		Node<Integer>[] nodes = new Node[10];
-		
+
 		// initialize nodes
-		for(int i=0; i<nodes.length; i++){
+		for (int i = 0; i < nodes.length; i++) {
 			nodes[i] = new Node<Integer>(i);
 		}
-		
+
 		// manually set up children
+
+		// root level
 		nodes[0].addChildNode(nodes[1]);
 		nodes[0].addChildNode(nodes[2]);
 		nodes[0].addChildNode(nodes[3]);
+
+		// children of node[1]
 		nodes[1].addChildNode(nodes[4]);
 		nodes[1].addChildNode(nodes[5]);
+
+		// children of node[2]
 		nodes[2].addChildNode(nodes[6]);
+
+		// children of node[3]
 		nodes[3].addChildNode(nodes[7]);
 		nodes[3].addChildNode(nodes[8]);
+
+		// children of node[4]
 		nodes[4].addChildNode(nodes[9]);
-		
-		
+
 		// do a bfs with root as nodes[0]
 		List<Node<Integer>> searchedBFSList = bfs.bfs(nodes[0]);
-		
+
 		// convert both Lists into array of integers
 		Node<Integer>[] nodeArray = searchedBFSList.toArray(new Node[searchedBFSList.size()]);
 		int[] actualInts = new int[10];
-		
+
 		// get the ints from nodeArray
-		for(int i=0; i<actualInts.length; i++){
+		for (int i = 0; i < actualInts.length; i++) {
 			actualInts[i] = nodeArray[i].getData();
 		}
-		
+
 		// the expected result we want
-		int[] expectedArray = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-		
+		int[] expectedArray = new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
 		// check if array returned is searching in correct order
 		assertArrayEquals(expectedArray, actualInts);
 	}
