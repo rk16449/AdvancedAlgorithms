@@ -1,16 +1,27 @@
 package breadthSearchFirst;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 public class BreadthFirstSearch<T> {
 
-	public void createBFS(Node<T> root){
+	public List<Node<T>> bfs(Node<T> root){
+		
+		List<Node<T>> order = new ArrayList<Node<T>>();
+		
 		// using a queue FIFO data structure
 		Queue<Node<T>> queue = new LinkedList<>();
 		
 		// make sure we've set visited on root
 		root.setVisited(true);
+		
+		// first data to be added is root
+		queue.add(root);
+		
+		// save into 
+		order.add(root);
 		
 		// while there is data on the queue
 		while(!queue.isEmpty()){
@@ -19,7 +30,7 @@ public class BreadthFirstSearch<T> {
 			Node<T> node = queue.remove(); 
 			
 			// print the node
-			System.out.println(node);
+			System.out.println(node + "");
 			
 			// loop through its children nodes
 			for(Node<T> n : node.getChildren()){
@@ -28,8 +39,12 @@ public class BreadthFirstSearch<T> {
 					n.setVisited(true);
 					// add to the queue to check its children
 					queue.add(n);
+					// save into order
+					order.add(n);
 				}
 			}
-		}
+		} // end while
+		
+		return order;
 	}
 }
